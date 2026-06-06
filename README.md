@@ -38,6 +38,6 @@ _Environmental Impact_: Supports sustainability efforts by optimizing energy con
 
 
 Run  ..
-|   Application.py  --> WebApp implementation of the model
-|  app.py  --> Tkinter implementation of the model 
-|  test2 --> Basic implementation of the model (with any Front-End) 
+-  Application.py  --> WebApp implementation of the model
+-  app.py  --> Tkinter implementation of the model 
+-  test2 --> Basic implementation of the model (with any Front-End) 
