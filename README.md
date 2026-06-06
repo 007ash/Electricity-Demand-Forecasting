@@ -3,7 +3,7 @@ Predicting Power Demand project focuses on accurately predicting future energy c
 
 - **Objective** : This predictive system that forecasts energy demand based on historical consumption data, environmental factors, and other influencing variables. The goal is to enable more efficient energy management, reduce costs, and support sustainable resource allocation.
 
-****Key Components ****
+### Key Components
 - **Data Collection**:
 Collect historical power usage data from past years, as well as data on temperature, humidity, holidays, and other factors that can impact energy consumption.
 Public or organizational datasets, IoT sensors, and weather APIs can serve as sources.
