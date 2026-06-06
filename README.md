@@ -30,12 +30,9 @@ The frontend displays interactive charts or graphs, allowing users to see histor
 This enables users to make data-driven decisions for energy allocation and management.
 
 **Benefits of the Project**
-_Operational Efficiency_: Helps energy providers and consumers balance supply and demand, preventing overproduction or shortages.
-_Cost Savings_: Reduces unnecessary energy production and helps manage peak demand costs.
-_Environmental Impact_: Supports sustainability efforts by optimizing energy consumption and reducing waste.
-
-
-
+- _Operational Efficiency_: Helps energy providers and consumers balance supply and demand, preventing overproduction or shortages.
+- _Cost Savings_: Reduces unnecessary energy production and helps manage peak demand costs.
+- _Environmental Impact_: Supports sustainability efforts by optimizing energy consumption and reducing waste.
 
 Run  ..
 -  Application.py  --> WebApp implementation of the model
