@@ -1,40 +1,110 @@
-## **The Smart Energy Forecasting System:** 
-Predicting Power Demand project focuses on accurately predicting future energy consumption to help utilities and organizations optimize resources, manage supply, and plan for peak demand periods. Here’s a high-level overview of the project:
+# Electricity Demand Forecasting
 
-- **Objective** : This predictive system that forecasts energy demand based on historical consumption data, environmental factors, and other influencing variables. The goal is to enable more efficient energy management, reduce costs, and support sustainable resource allocation.
+This project predicts future electricity demand from historical hourly usage data using an XGBoost regression model. It includes a desktop UI built with Tkinter, a Flask API for web integration, and a simple browser frontend that can request predictions and plot them with Chart.js.
 
-### Key Components
-- **Data Collection**:
-Collect historical power usage data from past years, as well as data on temperature, humidity, holidays, and other factors that can impact energy consumption.
-Public or organizational datasets, IoT sensors, and weather APIs can serve as sources.
+## Features
 
-- **Data Preprocessing**:
-Handling missing values, removing duplicates etc..
+- Forecast hourly electricity demand for a selected date/time range.
+- Train a time-series model on `DataSet.csv`.
+- Use a desktop interface with date pickers and a demand chart.
+- Expose predictions through a Flask `/predict` endpoint.
+- Render results in a lightweight HTML/JavaScript frontend.
 
-- **Feature Engineering**:
-Feature engineering is crucial here, as time-based features (e.g., day of the week, seasonality) and weather-related variables significantly impact energy demand.
+## Project Structure
 
-- **Model Selection and Training**:
-Using machine learning (e.g., XGBoost) or time series models (like ARIMA, LSTM) to train on historical data and make future predictions.
-Hyperparameter tuning and cross-validation help improve the model's accuracy and ensure generalization to unseen data.
+- `model.py` - core data preprocessing, feature engineering, training, and forecasting logic.
+- `app.py` - Tkinter desktop application.
+- `Application.py` - Flask API backend.
+- `test2.py` - example script that trains the model and saves it.
+- `index.html`, `script.js`, `style.css` - browser frontend.
+- `DataSet.csv` - training data used by the model.
+- `Documents/` and `Output images/` - supporting documentation and screenshots.
 
-- **Evaluation Metrics**:
-Evaluate the model with metrics like Mean Absolute Error (MAE), Mean Squared Error (MSE), or Root Mean Squared Error (RMSE) to gauge prediction accuracy.
+## Requirements
 
-- **Deployment and Real-time Prediction**:
-Host the trained model on a cloud platform like Vultr, where it serves predictions via a backend API (using frameworks like Flask or FastAPI).
-The frontend (either a Tkinter desktop app or a web application) interacts with the backend to fetch predictions and display them visually.
-Visualization and User Interface
+Install Python 3.10+ and the following packages:
 
-The frontend displays interactive charts or graphs, allowing users to see historical trends and forecasted demand.
-This enables users to make data-driven decisions for energy allocation and management.
+```bash
+pip install pandas numpy matplotlib scikit-learn xgboost flask tkcalendar
+```
 
-**Benefits of the Project**
-- _Operational Efficiency_: Helps energy providers and consumers balance supply and demand, preventing overproduction or shortages.
-- _Cost Savings_: Reduces unnecessary energy production and helps manage peak demand costs.
-- _Environmental Impact_: Supports sustainability efforts by optimizing energy consumption and reducing waste.
+`tkinter` is part of the standard Python distribution on most systems. If it is missing on Linux, install it through your package manager.
 
-Run  ..
--  Application.py  --> WebApp implementation of the model
--  app.py  --> Tkinter implementation of the model 
--  test2 --> Basic implementation of the model (with any Front-End) 
+## Run the Desktop App
+
+The Tkinter app loads the dataset, trains the model, and lets you request predictions from a start and end datetime.
+
+```bash
+python app.py
+```
+
+## Run the Flask API
+
+Start the backend server:
+
+```bash
+python Application.py
+```
+
+The API exposes:
+
+- `POST /predict`
+
+Example request body:
+
+```json
+{
+	"start_date": "2026-11-20",
+	"start_time": "00:00",
+	"end_date": "2026-11-21",
+	"end_time": "06:00"
+}
+```
+
+Example response:
+
+```json
+{
+	"result": "[...]"
+}
+```
+
+## Run the Browser Frontend
+
+The HTML frontend calls the Flask API at `http://localhost:5000/predict`, so make sure the backend is running first.
+
+Open `index.html` in a browser, enter a date range, and click Display Values.
+
+## Sample Script
+
+`test2.py` shows a minimal end-to-end flow:
+
+1. Load `DataSet.csv`
+2. Preprocess the data
+3. Train the model
+4. Generate a forecast
+5. Save and reload the model as `model.json`
+
+Run it with:
+
+```bash
+python test2.py
+```
+
+## How It Works
+
+1. The dataset is normalized into a datetime index.
+2. Calendar features such as hour, day of week, month, and year are created.
+3. Lag features are added to capture demand patterns from previous years.
+4. An XGBoost regressor is trained with time-series cross-validation.
+5. Predictions are returned for the requested future time range.
+
+## Notes
+
+- The current implementation trains the model when the app starts.
+- If you plan to reuse the model often, call `save_model()` after training and load the saved file later.
+- The API and the desktop app both use the shared forecasting logic in `model.py`.
+
+## License
+
+No license file is included in the repository.
